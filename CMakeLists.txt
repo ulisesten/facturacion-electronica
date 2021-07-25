@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 2.8...3.10)
 project(cfdi-project)
 
 set(SRC ${PROJECT_SOURCE_DIR}/src/main.cpp
-        ${PROJECT_SOURCE_DIR}/src/cfdv33.cpp
-        ${PROJECT_SOURCE_DIR}/src/catCFDI.cpp
-        ${PROJECT_SOURCE_DIR}/src/tdCFDI.cpp
+        ${PROJECT_SOURCE_DIR}/src/cfdv33.cxx
+        ${PROJECT_SOURCE_DIR}/src/catCFDI.cxx
+        ${PROJECT_SOURCE_DIR}/src/tdCFDI.cxx
 )
 
 find_package(XercesC REQUIRED)

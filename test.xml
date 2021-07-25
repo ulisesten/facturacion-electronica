@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<p1:Comprobante xmlns:p1="XDSToXML" Certificado="" Fecha="" LugarExpedicion="79020" Moneda="MXN" NoCertificado="1212121212121212121" Sello="" SubTotal="10" TipoDeComprobante="I" Total="12" Version="3.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../assets/cadenaoriginal.xslt">
+  <p1:Emisor Nombre="Una Razón" RegimenFiscal="605" Rfc="PEPE080801JH1"/>
+  <p1:Receptor Nombre="Pepe" Rfc="Rfc_type" UsoCFDI="D01"/>
+  <p1:Conceptos/>
+</p1:Comprobante>
