@@ -11,13 +11,18 @@ ejecuta el script `dependencies.sh`
 
 libraries are:
 
-    xsd
     XercesC
-    xsdcxx
 
 # Building
 
+    git submodule update --init --recursive
     cmake -S . -B build
     make -C build
     ./build/cfdi-project
+
+# TODO
+
+    remover librería chilkat
+    añadir repo xalanc(Hecho)
+    añadir repo sslfunctions para reemplazar chilkat
 
