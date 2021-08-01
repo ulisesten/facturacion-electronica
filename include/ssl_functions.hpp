@@ -1,3 +1,9 @@
+/**
+ * Ulisesten
+ * Agosto 1, 2021
+ * Función para obtener la información de los certificados DER con extensión .cer
+*/
+
 #ifndef SSL_FUNCTION_HPP
 #define SSL_FUNCTION_HPP
 
