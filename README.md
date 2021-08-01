@@ -22,7 +22,10 @@ libraries are:
 
 # TODO
 
-    remover librería chilkat
+    remover librería chilkat(Hecho - 01/08/21)
     añadir repo xalanc(Hecho)
-    añadir repo sslfunctions para reemplazar chilkat
+    añadir sslfunctions para reemplazar chilkat(Hecho - 01/08/21)
+    
+    añadir XercesC como submódulo para construirlo automáticamente
+    probar en windows
 
