@@ -54,10 +54,10 @@ int main(){
 
     oConceptos.Concepto(conceptosList);
 
-    struct Cer_Info cer_info = s_readCER("cers/CSD_XOCHILT_CASAS_CHAVEZ_2_CACX7605101P8_20190617_181215s.cer");
+    DCert cer_info = s_readCER("cers/CSD_XOCHILT_CASAS_CHAVEZ_2_CACX7605101P8_20190617_181215s.cer");
 
     CFD_33::Sello               oSello            = Sello();
-    CFD_33::NoCertificado       oNoCertificado    = NoCertificado(cer_info.number);
+    CFD_33::NoCertificado       oNoCertificado    = NoCertificado(cer_info.serial_number);
     CFD_33::Certificado         oCertificado      = Certificado();
     
 
@@ -130,7 +130,7 @@ int main(){
         std::cerr << "An unknown error occurred!" << std::endl;
     }
 
-    oComprobante.Certificado(cer_info.b64Encoded);
+    oComprobante.Certificado(cer_info.encoded);
     
     createXML(oComprobante, "sealed.xml");
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Certificado="" Fecha="2021-07-31T01:45:37" LugarExpedicion="79020" Moneda="MXN" NoCertificado="30001000000400002451" Sello="" SubTotal="10" TipoDeComprobante="I" Total="12" Version="3.3" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd">
+  <cfdi:Emisor Nombre="Una Razón" RegimenFiscal="605" Rfc="PEPE080801JH1"/>
+  <cfdi:Receptor Nombre="Pepe" Rfc="hkghk" UsoCFDI="D01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto Cantidad="10" ClaveProdServ="01010101" ClaveUnidad="05" Descripcion="Esta es la descripción" Importe="10" ValorUnitario="10"/>
+  </cfdi:Conceptos>
+</cfdi:Comprobante>

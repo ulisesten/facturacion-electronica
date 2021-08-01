@@ -1,40 +1,84 @@
 #include "ssl_functions.hpp"
-#include <iostream>
-#include <string.h>
-#include <CkCert.h>
-#include <CkPublicKey.h>
 
-Cer_Info s_readCER(const char* filename){
-    CkCert cert;
-    CkString str;
-    struct Cer_Info cer_info;
-    char number[20];
 
-    bool success = cert.LoadFromFile(filename);
-    if (success == false) {
-        std::cout << "error" << "\r\n";
-    }
+DCert s_readCER(const char* file_name){
+    BIO *bio;
+    X509 *certificate;
+    FILE* file;
+    DCert cer_info;
+    unsigned char* out = NULL;
+    int len;
+    
+    /**opening file*/
+    file = fopen(file_name, "r");
 
-    r_resize_number(cert.serialNumber(), cer_info.number );
+    /**reading file*/
+    certificate = d2i_X509_fp(file, NULL);
 
-    cer_info.b64Encoded = (char*) malloc(sizeof(char*) * strlen(cert.getEncoded()));
-    strcpy(cer_info.b64Encoded, cert.getEncoded());
+    /**getting entyre file*/
+    len = i2d_X509(certificate, &out);
+
+    /**encoding entyre file*/
+    cer_info.encoded = b64_encode(out, len);
+
+    /**getting certificate serial number*/
+    cer_info.serial_number = (char*)X509_get_serialNumber (certificate)->data;
+    
+    
+    fclose(file);
 
     return cer_info;
-
+    
 }
 
-void r_resize_number(const char* serialNumber, char resizedNumber[20]){
-    //version: 3
-    //input:   33 30 30 30 31 30 30 30 30 30 30 34 30 30 30 30 32 34 35 31
-    //output:  30001000000400002451
 
-    int newNumberIndex = 0;
-    for(int i = 1; i < 40; i+=2){
-        resizedNumber[newNumberIndex] = serialNumber[i];
-        newNumberIndex++;
-    }
+size_t b64_encoded_size(size_t inlen) {
+	size_t ret;
 
-    resizedNumber[newNumberIndex] = '\0';
+	ret = inlen;
+	if (inlen % 3 != 0)
+		ret += 3 - (inlen % 3);
+	ret /= 3;
+	ret *= 4;
 
+	return ret;
 }
+
+char *b64_encode(const unsigned char *in, size_t len)
+{
+	char   *out;
+	size_t  elen;
+	size_t  i;
+	size_t  j;
+	size_t  v;
+    const char b64chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+	if (in == NULL || len == 0)
+		return NULL;
+
+	elen = b64_encoded_size(len);
+	out  = (char*)malloc(elen+1);
+	out[elen] = '\0';
+
+	for (i=0, j=0; i<len; i+=3, j+=4) {
+		v = in[i];
+		v = i+1 < len ? v << 8 | in[i+1] : v << 8;
+		v = i+2 < len ? v << 8 | in[i+2] : v << 8;
+
+		out[j]   = b64chars[(v >> 18) & 0x3F];
+		out[j+1] = b64chars[(v >> 12) & 0x3F];
+		if (i+1 < len) {
+			out[j+2] = b64chars[(v >> 6) & 0x3F];
+		} else {
+			out[j+2] = '=';
+		}
+		if (i+2 < len) {
+			out[j+3] = b64chars[v & 0x3F];
+		} else {
+			out[j+3] = '=';
+		}
+	}
+
+	return out;
+}
+

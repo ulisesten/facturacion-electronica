@@ -21,7 +21,6 @@ include_directories(
         ${XercesC_INCLUDE_DIRS}
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/external/cfdi-class/include
-        ${PROJECT_SOURCE_DIR}/external/chilkat/include
 
         ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src
         ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src/xalanc/PlatformSupport
@@ -40,7 +39,6 @@ target_link_directories(
         ${PROJECT_NAME}
             PUBLIC
                 ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib
-                ${PROJECT_SOURCE_DIR}/external/chilkat/lib
                 ${PROJECT_SOURCE_DIR}/external/xalanc-lib/src/xalanc
 )
 
@@ -49,7 +47,6 @@ target_link_libraries(
             CFDI 
             XercesC::XercesC
             OpenSSL::SSL
-            chilkat-9.5.0
             pthread
             resolv
             dl

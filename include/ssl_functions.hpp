@@ -1,12 +1,18 @@
 #ifndef SSL_FUNCTION_HPP
 #define SSL_FUNCTION_HPP
 
-struct Cer_Info {
-    char number[20];
-    char* b64Encoded;
-};
+#include <iostream>
+#include <stdlib.h>
+#include <openssl/bio.h>
+#include <openssl/x509.h>
 
-Cer_Info s_readCER(const char* filename);
-void r_resize_number(const char* serialNumber, char resizedNumber[20]);
+typedef struct{
+    char* serial_number;
+    char* encoded;
+}DCert;
+
+DCert s_readCER(const char* file_name);
+size_t b64_encoded_size(size_t inlen);
+char *b64_encode(const unsigned char *in, size_t len);
 
 #endif
