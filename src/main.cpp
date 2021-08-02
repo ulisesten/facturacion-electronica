@@ -4,8 +4,8 @@
 #include "tdCFDI.hxx"
 #include "ssl_functions.hpp" 
 
-#include <xalanc/Include/PlatformDefinitions.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
+#include <xalanc/Include/PlatformDefinitions.hpp>
 #include <xalanc/XalanTransformer/XalanTransformer.hpp>
 #include <xalanc/XalanTransformer/XalanCAPI.h>
 

@@ -8,19 +8,18 @@ Facturación electrónica (SAT, México) en C++
 
 La aplicación es capaz de:
 
-    1 - crear XML de comprobante
-    2 - leer el certificado
-    3 - crear cadena original
-    4 - crear XML con algunos datos del certificado(falta sello. La función para sellar
-        se añadirá en la librería ssl_functions).
+1. crear XML de comprobante
+2. leer el certificado
+3. crear cadena original
+4. crear XML con algunos datos del certificado(falta sello. La función para sellar
+    se añadirá en la librería ssl_functions).
 
 
-# Dependencies
+# Requerimientos
 
-(en linux)ejecuta el script `dependencies.sh`
-(en Windows) descarga e instala las siguientes dependencias
+En linux ejecuta el script `dependencies.sh`.
 
-libraries are:
+En Windows descarga e instala las siguientes dependencias
 
     XercesC
     OpenSSL
@@ -34,10 +33,10 @@ libraries are:
 
 # TODO
 
-    remover librería chilkat --------------------------- (Hecho - 01/08/21)
-    añadir repo xalanc                                   (Hecho - 30/07/21)
-    añadir sslfunctions para reemplazar chilkat -------- (Hecho - 01/08/21)
+    [x] remover librería chilkat --------------------------- (Hecho - 01/08/21)
+    [x] añadir repo xalanc                                   (Hecho - 30/07/21)
+    [x] añadir sslfunctions para reemplazar chilkat -------- (Hecho - 01/08/21)
 
-    añadir XercesC como submódulo para construirlo automáticamente
-    probar en windows
+    [ ] añadir XercesC como submódulo para construirlo automáticamente
+    [ ] probar en windows
 

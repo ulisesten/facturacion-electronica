@@ -5,51 +5,48 @@ set(SRC ${PROJECT_SOURCE_DIR}/src/main.cpp
         ${PROJECT_SOURCE_DIR}/src/ssl_functions.cpp
 )
 
-add_subdirectory(external/cfdi-class    ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib)
+add_subdirectory(external/xerces-c      ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib)
 add_subdirectory(external/xalanc        ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib)
+add_subdirectory(external/cfdi-class    ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib)
 
 find_package(OpenSSL REQUIRED)
-find_package(XercesC REQUIRED)
-#find_package(LibXslt REQUIRED)
-#find_library(CFDI NAMES CFDI PATHS ${PROJECT_SOURCE_DIR}/internal_libs/lib )
+#find_package(XercesC REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SRC})
 
 #message(STATUS ${PROJECT_SOURCE_DIR}/cfdi/lib)
+#set(XercesC::XercesC )
+#set(XercesC_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/external/xerces-c/src)
+#set(XercesC_LIBRARIES    ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib/src)
 
 include_directories(
-        ${XercesC_INCLUDE_DIRS}
-        ${PROJECT_SOURCE_DIR}/include
-        ${PROJECT_SOURCE_DIR}/external/cfdi-class/include
-
+        #${XercesC_INCLUDE_DIRS}
+        ${PROJECT_SOURCE_DIR}/external/xerces-c/src
         ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src
         ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src/xalanc/PlatformSupport
         ${PROJECT_SOURCE_DIR}/external/xalanc/src
-        #${LIBXSLT_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}/external/cfdi-class/include
+        ${PROJECT_SOURCE_DIR}/include
 )
 
 
 
-link_directories(
-        ${XercesC_LIBRARIES}
-        ${LIBXSLT_LIBRARIES}
-)
+#link_directories(${XercesC_LIBRARIES})
 
 target_link_directories(
         ${PROJECT_NAME}
             PUBLIC
-                ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib
+                ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib/src
                 ${PROJECT_SOURCE_DIR}/external/xalanc-lib/src/xalanc
+                ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib
 )
 
 target_link_libraries(
         ${PROJECT_NAME}
-            CFDI 
-            XercesC::XercesC
             OpenSSL::SSL
-            pthread
-            resolv
-            dl
+            CFDI 
+            #XercesC::XercesC
             xalan-c
-            #Xslt
+            xerces-c-3.2
+            pthread
 )
