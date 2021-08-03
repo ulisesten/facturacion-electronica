@@ -36,7 +36,11 @@ En Windows descarga e instala las siguientes dependencias
     [x] remover librería chilkat --------------------------- (Hecho - 01/08/21)
     [x] añadir repo xalanc                                   (Hecho - 30/07/21)
     [x] añadir sslfunctions para reemplazar chilkat -------- (Hecho - 01/08/21)
+    [x] probar en windows                                    (Hecho - 02/08/21)
+            (Fallos con librería xalanc y MinGW)
+    [x] añadir XercesC como submódulo para construirlo automáticamente
 
-    [ ] añadir XercesC como submódulo para construirlo automáticamente
-    [ ] probar en windows
+    [ ] probar en Windows con Visual Studio
+    [ ] sustituir xalanc con libXSLT
+    [ ] añadir icu como submodule si aún es necesario al remover xalanc
 
