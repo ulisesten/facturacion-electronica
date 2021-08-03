@@ -1,12 +1,10 @@
 [submodule "external/cfdi-class"]
 	path = external/cfdi-class
 	url = https://github.com/ulisesten/cfdi-class.git
-
-[submodule "external/xalanc"]
-	path = external/xalanc
-	url = https://github.com/ulisesten/xalanc.git
-	
 [submodule "external/xerces-c"]
 	path = external/xerces-c
 	url = https://github.com/apache/xerces-c.git
 	branch = xerces-3.2.2
+[submodule "external/libxslt"]
+	path = external/libxslt
+	url = https://github.com/GNOME/libxslt.git

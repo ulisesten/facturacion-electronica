@@ -5,9 +5,15 @@
 #include "ssl_functions.hpp" 
 
 #include <xercesc/util/PlatformUtils.hpp>
-#include <xalanc/Include/PlatformDefinitions.hpp>
-#include <xalanc/XalanTransformer/XalanTransformer.hpp>
-#include <xalanc/XalanTransformer/XalanCAPI.h>
+//#include <xalanc/Include/PlatformDefinitions.hpp>
+//#include <xalanc/XalanTransformer/XalanTransformer.hpp>
+//#include <xalanc/XalanTransformer/XalanCAPI.h>
+
+/**LiXSLT*/
+#include <libxslt/xslt.h>
+#include <libxslt/xsltInternals.h>
+#include <libxslt/transform.h>
+#include <libxslt/xsltutils.h>
 
 #include <iostream>
 #include <fstream>
@@ -91,7 +97,7 @@ int main(){
     	
     createXML(oComprobante, "test.xml");
 
-    try {
+    /*try {
 
         using xercesc::XMLPlatformUtils;
         using xalanc::XalanTransformer;
@@ -128,6 +134,25 @@ int main(){
 
     }   catch(...) {
         std::cerr << "An unknown error occurred!" << std::endl;
+    }*/
+
+    {
+        xsltStylesheetPtr cur = NULL;
+        xmlDocPtr doc, res;
+        int nbparams = 0;
+
+        doc = xmlParseFile("test.xml");
+        cur = xsltParseStylesheetFile((const xmlChar *)"assets/cadenaoriginal1.xslt");
+        res = xsltApplyStylesheet(cur, doc, NULL);
+        xsltSaveResultToFile(stdout, res, cur);
+
+        xsltFreeStylesheet(cur);
+	    xmlFreeDoc(res);
+	    xmlFreeDoc(doc);
+
+        xsltCleanupGlobals();
+        xmlCleanupParser();
+        
     }
 
     oComprobante.Certificado(cer_info.encoded);

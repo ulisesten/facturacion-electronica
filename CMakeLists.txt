@@ -1,30 +1,32 @@
 cmake_minimum_required(VERSION 2.8...3.10)
 project(cfdi-project)
 
+find_package(OpenSSL REQUIRED)
+find_package(LibXslt REQUIRED)
+find_package(LibXml2  REQUIRED)
+#find_package(XercesC REQUIRED)
+
 set(SRC ${PROJECT_SOURCE_DIR}/src/main.cpp
         ${PROJECT_SOURCE_DIR}/src/ssl_functions.cpp
 )
 
 add_subdirectory(external/xerces-c      ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib)
-add_subdirectory(external/xalanc        ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib)
+#add_subdirectory(external/xalanc        ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib)
 add_subdirectory(external/cfdi-class    ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib)
 
-find_package(OpenSSL REQUIRED)
-#find_package(XercesC REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SRC})
 
 #message(STATUS ${PROJECT_SOURCE_DIR}/cfdi/lib)
-#set(XercesC::XercesC )
-#set(XercesC_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/external/xerces-c/src)
-#set(XercesC_LIBRARIES    ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib/src)
 
 include_directories(
         #${XercesC_INCLUDE_DIRS}
+        ${LIBXSLT_INCLUDE_DIR}
+        ${LIBXML2_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/external/xerces-c/src
-        ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src
-        ${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src/xalanc/PlatformSupport
-        ${PROJECT_SOURCE_DIR}/external/xalanc/src
+        #${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src
+        #${PROJECT_SOURCE_DIR}/external/lib/xalanc-lib/src/xalanc/PlatformSupport
+        #${PROJECT_SOURCE_DIR}/external/xalanc/src
         ${PROJECT_SOURCE_DIR}/external/cfdi-class/include
         ${PROJECT_SOURCE_DIR}/include
 )
@@ -36,8 +38,10 @@ include_directories(
 target_link_directories(
         ${PROJECT_NAME}
             PUBLIC
+                ${LIBXSLT_LIBRARIES}
+                ${LIBXML2_LIBRARIES}
                 ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib/src
-                ${PROJECT_SOURCE_DIR}/external/xalanc-lib/src/xalanc
+                #${PROJECT_SOURCE_DIR}/external/xalanc-lib/src/xalanc
                 ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib
 )
 
@@ -46,7 +50,9 @@ target_link_libraries(
             OpenSSL::SSL
             CFDI 
             #XercesC::XercesC
-            xalan-c
+            #xalan-c
             xerces-c-3.2
             pthread
+            xslt
+            xml2
 )
