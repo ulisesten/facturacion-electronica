@@ -5,6 +5,3 @@
 	path = external/xerces-c
 	url = https://github.com/apache/xerces-c.git
 	branch = xerces-3.2.2
-[submodule "external/libxslt"]
-	path = external/libxslt
-	url = https://github.com/GNOME/libxslt.git
