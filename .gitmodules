@@ -5,7 +5,9 @@
 	path = external/xerces-c
 	url = https://github.com/apache/xerces-c.git
 	branch = xerces-3.2.2
+[submodule "external/libxslt"]
+	path = external/libxslt
+	url = https://github.com/ulisesten/libxslt.git
 [submodule "external/libxml2"]
 	path = external/libxml2
 	url = https://gitlab.gnome.org/GNOME/libxml2.git
-
