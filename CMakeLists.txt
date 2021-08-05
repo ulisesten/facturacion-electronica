@@ -8,6 +8,8 @@ add_subdirectory(external/libxslt       ${PROJECT_SOURCE_DIR}/external/lib/libxs
 add_subdirectory(external/xerces-c      ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib )
 add_subdirectory(external/cfdi-class    ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib     )
 
+find_package(OpenSSL REQUIRED)
+
 set(SRC ${PROJECT_SOURCE_DIR}/src/main.cpp
         ${PROJECT_SOURCE_DIR}/src/ssl_functions.cpp
 )
@@ -15,6 +17,7 @@ set(SRC ${PROJECT_SOURCE_DIR}/src/main.cpp
 add_executable(${PROJECT_NAME} ${SRC})
 
 include_directories(
+        ${PROJECT_SOURCE_DIR}/external/libxml2/include
         ${PROJECT_SOURCE_DIR}/external/lib/libxml2-lib
         ${PROJECT_SOURCE_DIR}/external/lib/libxslt-lib
         ${PROJECT_SOURCE_DIR}/external/xerces-c/src
