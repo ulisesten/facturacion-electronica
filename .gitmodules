@@ -5,3 +5,6 @@
 [submodule "external/libxml2"]
 	path = external/libxml2
 	url = https://gitlab.gnome.org/GNOME/libxml2.git
+[submodule "external/cfdi-class"]
+	path = external/cfdi-class
+	url = https://github.com/ulisesten/cfdi-class.git
