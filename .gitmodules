@@ -1,6 +1,3 @@
-[submodule "external/cfdi-class"]
-	path = external/cfdi-class
-	url = https://github.com/ulisesten/cfdi-class.git
 [submodule "external/xerces-c"]
 	path = external/xerces-c
 	url = https://github.com/apache/xerces-c.git
