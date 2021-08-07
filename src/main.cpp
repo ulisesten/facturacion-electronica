@@ -137,13 +137,13 @@ int main(){
     }*/
 
     {
-        xsltStylesheetPtr cur = NULL;
+        xsltStylesheetPtr cur = nullptr;
         xmlDocPtr doc, res;
         int nbparams = 0;
 
         doc = xmlParseFile("test.xml");
         cur = xsltParseStylesheetFile((const xmlChar *)"assets/cadenaoriginal1.xslt");
-        res = xsltApplyStylesheet(cur, doc, NULL);
+        res = xsltApplyStylesheet(cur, doc, nullptr);
         xsltSaveResultToFile(stdout, res, cur);
 
         xsltFreeStylesheet(cur);
