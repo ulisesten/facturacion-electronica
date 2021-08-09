@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8...3.10)
 project(cfdi-project)
 
-set(LibXml2_DIR ${PROJECT_SOURCE_DIR}/external/lib/libxml2-lib)
+#set(LibXml2_DIR ${PROJECT_SOURCE_DIR}/external/lib/libxml2-lib)
 
 add_subdirectory(external/xerces-c      ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib )
 add_subdirectory(external/cfdi-class    ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib     )
