@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/libxslt",
-                "/usr/include/libxml2"
+                "/usr/include/libxml2",
+                "/home/ulises/Qt/5.12.11/gcc_64/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
