@@ -4,13 +4,7 @@
 #include "tdCFDI.hxx"
 #include "ssl_functions.hpp" 
 
-//#include <QtCore/QCoreApplication>
-//#include <QtXmlPatterns/QXmlQuery>
-
 #include <xercesc/util/PlatformUtils.hpp>
-//#include <xalanc/Include/PlatformDefinitions.hpp>
-//#include <xalanc/XalanTransformer/XalanTransformer.hpp>
-//#include <xalanc/XalanTransformer/XalanCAPI.h>
 
 /**LiXSLT*/
 #include <libxslt/xslt.h>
@@ -32,8 +26,6 @@ void createXML(Comprobante oComprobante, const char* xmlname);
 Comprobante::Fecha_type getDate();
 
 int main(int argc, char *argv[]){
-
-    QCoreApplication a(argc, argv);
 
     CFD_33::Emisor              oEmisor           = Emisor(       "PEPE080801JH1"  , c_RegimenFiscal::cxx_605 );
     CFD_33::Receptor            oReceptor         = Receptor(     "hkghk"          , c_UsoCFDI::D01 );
@@ -174,7 +166,7 @@ int main(int argc, char *argv[]){
     
     createXML(oComprobante, "sealed.xml");
 
-    return a.exec();
+    return 0;
 
 }
 
