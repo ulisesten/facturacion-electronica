@@ -4,8 +4,8 @@
 #include "tdCFDI.hxx"
 #include "ssl_functions.hpp" 
 
-#include <QtCore/QCoreApplication>
-#include <QtXmlPatterns/QXmlQuery>
+//#include <QtCore/QCoreApplication>
+//#include <QtXmlPatterns/QXmlQuery>
 
 #include <xercesc/util/PlatformUtils.hpp>
 //#include <xalanc/Include/PlatformDefinitions.hpp>
@@ -13,10 +13,10 @@
 //#include <xalanc/XalanTransformer/XalanCAPI.h>
 
 /**LiXSLT*/
-//#include <libxslt/xslt.h>
-//#include <libxslt/xsltInternals.h>
-//#include <libxslt/transform.h>
-//#include <libxslt/xsltutils.h>
+#include <libxslt/xslt.h>
+#include <libxslt/xsltInternals.h>
+#include <libxslt/transform.h>
+#include <libxslt/xsltutils.h>
 
 #include <iostream>
 #include <fstream>
@@ -142,7 +142,16 @@ int main(int argc, char *argv[]){
         std::cerr << "An unknown error occurred!" << std::endl;
     }*/
 
-    /*{
+    /*QString out;
+    QXmlQuery query(QXmlQuery::XSLT20);
+    query.setFocus(QUrl("../test.xml"));
+    query.setQuery(QUrl("../assets/cadenaoriginal1.xslt"));
+    query.evaluateTo(&out);
+
+    std::cout << out.data() << std::endl;
+    */
+
+    {
         xsltStylesheetPtr cur = nullptr;
         xmlDocPtr doc, res;
         int nbparams = 0;
@@ -159,15 +168,7 @@ int main(int argc, char *argv[]){
         xsltCleanupGlobals();
         xmlCleanupParser();
         
-    }*/
-
-    QString out;
-    QXmlQuery query(QXmlQuery::XSLT20);
-    query.setFocus(QUrl("../test.xml"));
-    query.setQuery(QUrl("../assets/cadenaoriginal1.xslt"));
-    query.evaluateTo(&out);
-
-    std::cout << out.data() << std::endl;
+    }
 
     oComprobante.Certificado(cer_info.encoded);
     
