@@ -39,8 +39,9 @@ En Windows descarga e instala las siguientes dependencias
     [x] probar en windows                                    (Hecho - 02/08/21)
             (Fallos con librería xalanc y MinGW)
     [x] añadir XercesC como submódulo para construirlo automáticamente
+    [x] sustituir xalanc con libXSLT
+    [x] Probado con msys2(No se ejecuta correctamente)       (Hecho - 11/08/21)
 
     [ ] probar en Windows con Visual Studio
-    [ ] sustituir xalanc con libXSLT
     [ ] añadir icu como submodule si aún es necesario al remover xalanc
 
