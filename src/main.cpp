@@ -6,11 +6,9 @@
 
 #include <xercesc/util/PlatformUtils.hpp>
 
-/**LiXSLT*/
-#include <libxslt/xslt.h>
-#include <libxslt/xsltInternals.h>
-#include <libxslt/transform.h>
-#include <libxslt/xsltutils.h>
+#include <xalanc/Include/PlatformDefinitions.hpp>
+#include <xalanc/XalanTransformer/XalanTransformer.hpp>
+#include <xalanc/XalanTransformer/XalanCAPI.h>
 
 #include <iostream>
 #include <fstream>
