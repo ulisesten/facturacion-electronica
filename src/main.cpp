@@ -5,15 +5,15 @@
 #include "ssl_functions.hpp" 
 
 #include <xercesc/util/PlatformUtils.hpp>
-//#include <xalanc/Include/PlatformDefinitions.hpp>
-//#include <xalanc/XalanTransformer/XalanTransformer.hpp>
-//#include <xalanc/XalanTransformer/XalanCAPI.h>
+#include <xalanc/Include/PlatformDefinitions.hpp>
+#include <xalanc/XalanTransformer/XalanTransformer.hpp>
+#include <xalanc/XalanTransformer/XalanCAPI.h>
 
 /**LiXSLT*/
-#include <libxslt/xslt.h>
-#include <libxslt/xsltInternals.h>
-#include <libxslt/transform.h>
-#include <libxslt/xsltutils.h>
+//#include <libxslt/xslt.h>
+//#include <libxslt/xsltInternals.h>
+//#include <libxslt/transform.h>
+//#include <libxslt/xsltutils.h>
 
 #include <iostream>
 #include <fstream>
@@ -97,7 +97,7 @@ int main(){
     	
     createXML(oComprobante, "test.xml");
 
-    /*try {
+    try {
 
         using xercesc::XMLPlatformUtils;
         using xalanc::XalanTransformer;
@@ -112,10 +112,10 @@ int main(){
         {
             XalanTransformer theXalanTransformer;
 
-            XSLTInputSource  xmlIn("test.xml");
-            XSLTInputSource  xslIn("assets/cadenaoriginal1.xslt");
-            XSLTResultTarget xmlOut("foo-out.xml");
-            XalanDOMString   encoding("UTF-8");
+            XSLTInputSource  xmlIn    ("test.xml");
+            XSLTInputSource  xslIn    ("assets/cadenaoriginal1.xslt");
+            XSLTResultTarget xmlOut   ("foo-out.xml");
+            XalanDOMString   encoding ("UTF-8");
             
             theXalanTransformer.setOutputEncoding(encoding);
 
@@ -134,9 +134,9 @@ int main(){
 
     }   catch(...) {
         std::cerr << "An unknown error occurred!" << std::endl;
-    }*/
+    }
 
-    {
+    /*{
         xsltStylesheetPtr cur = NULL;
         xmlDocPtr doc, res;
         int nbparams = 0;
@@ -153,7 +153,7 @@ int main(){
         xsltCleanupGlobals();
         xmlCleanupParser();
         
-    }
+    }*/
 
     oComprobante.Certificado(cer_info.encoded);
     
