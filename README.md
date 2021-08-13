@@ -26,6 +26,44 @@ En Windows descarga e instala las siguientes dependencias
 
 # Building
 
+Compilación de las dependencias
+
+## XercesC
+
+entra en la carpeta de xerces-c y corre el siguiente comando con cmake:
+
+    cmake -G "Visual Studio 15 2017 Win64" -S . -B build -DCMAKE_INSTALL_PREFIX=C:\xerces-c
+
+ahora contruye el proyecto con:
+
+    cmake --build build --config Debug
+
+y finalmente lo instalas con:
+
+    cmake --build build --config Debug --target install
+
+
+## XalanC
+
+Ahora hay que compilar xalanc
+
+    cmake -DCMAKE_PREFIX_PATH=C:\xerces-c -G "Visual Studio 15 2017 Win64" -S . -B build -DCMAKE_INSTALL_PREFIX=C:\xalan-c
+
+antes del siguiente paso necesitas localizar el archivo `xerces-c_3_2D.dll` en `/xerces-c/bin(carpeta de instalación)`  y copiarlo a `xalanc/build/src/xalanc/Utils/MsgCreator/Debug` o en la carpeta donde se encuentra `MsgCreator.exe` dentro de la carpeta build creada por cmake
+
+ahora estas listo para construir xalanc con:
+
+    cmake --build build --config Debug
+
+y ahora lo instalas
+
+    cmake --build build --config Debug --target install
+
+
+por ahora los siguientes pasos están pendientes
+
+
+
     git submodule update --init --recursive
     cmake -S . -B build
     make -C build
@@ -42,6 +80,8 @@ En Windows descarga e instala las siguientes dependencias
     [x] sustituir xalanc con libXSLT
     [x] Probado con msys2(No se ejecuta correctamente)       (Hecho - 11/08/21)
 
-    [ ] probar en Windows con Visual Studio
+    [x] probar en Windows con Visual Studio                  (Hecho - 12/08/21)
+        Se compilaron las librerías xerces-c y xalan-c exitosamente
+
     [ ] añadir icu como submodule si aún es necesario al remover xalanc
 

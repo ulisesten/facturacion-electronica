@@ -93,7 +93,7 @@ int main(int argc, char *argv[]){
     	
     createXML(oComprobante, "test.xml");
 
-    /*try {
+    try {
 
         using xercesc::XMLPlatformUtils;
         using xalanc::XalanTransformer;
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]){
 
     }   catch(...) {
         std::cerr << "An unknown error occurred!" << std::endl;
-    }*/
+    }
 
     /*QString out;
     QXmlQuery query(QXmlQuery::XSLT20);
@@ -140,8 +140,7 @@ int main(int argc, char *argv[]){
 
     std::cout << out.data() << std::endl;
     */
-
-    {
+    /*{
         xsltStylesheetPtr cur = nullptr;
         xmlDocPtr doc, res;
         int nbparams = 0;
@@ -158,7 +157,7 @@ int main(int argc, char *argv[]){
         xsltCleanupGlobals();
         xmlCleanupParser();
         
-    }
+    }*/
 
     oComprobante.Certificado(cer_info.encoded);
     
