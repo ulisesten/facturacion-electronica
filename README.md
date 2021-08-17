@@ -2,6 +2,8 @@
 
 (En progreso)
 
+# El proyecto ya se logró compilar exitosamente :)
+
 Facturación electrónica (SAT, México) en C++
 
 # Progreso
