@@ -4,15 +4,12 @@ El proyecto está en la rama beta. Se pasará a la master cuando se agregue la f
 
 Si te interesa el proyecto no olvides poner una estrella o dejar para una cerveza.
 
-# Nota:
-
-Actualmente el proyecto corre perfectamente en linux, pero se está complicando compilarlo en windows. Contribuciones y sugerencias son bienvenidas.
-
 # Actualización
 
 - El proyecto funciona en Windows con la rama win32-xalanc
 - Las dependencias xercesc y xalanc se compilaron exitosamente con visual studio 15 2017
 - Se le dará prioridad a la rama win32-xalanc
+- El proyecto ya se logró compilar en Windows.
 
 ## las ramas para windows son:
 
