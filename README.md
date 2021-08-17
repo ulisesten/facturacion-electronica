@@ -19,14 +19,11 @@ La aplicación es capaz de:
 
 En linux ejecuta el script `dependencies.sh`.
 
-En Windows descarga e instala las siguientes dependencias
-
-    XercesC
-    OpenSSL
-
 # Building
 
-Compilación de las dependencias
+Compilación de las dependencias.
+
+Para esta configuración yo instalé todas las librerías en `C:\`.
 
 ## XercesC
 
@@ -60,28 +57,40 @@ y ahora lo instalas
     cmake --build build --config Debug --target install
 
 
-por ahora los siguientes pasos están pendientes
+## OpenSSL
+ 
+Primero necesitas instalar [strawberry perl](https://strawberryperl.com) y [NASM](https://www.nasm.us)
 
+Agrega NASM temporalmente al path con `set PATH=%PATH%;containing\NASM\folder`
+
+Abre una consola de Visual Studio como administrador en la carpeta de openSSL y teclea
+
+    perl Configure
+    nmake
+    nmake test
+    nmake install
+
+
+Y así ha quedado instalado openSSL
+
+Ahora sólo copia el archivo openssl/ms/applink.c a la carpeta include del proyecto, pues es una dependencia de openssl :(
+
+## XSD
+
+Descarga en instala la siguiente librería [XSD download](https://www.codesynthesis.com/download/xsd/4.0/windows/i686/xsd-4.0.msi)
+
+o ve a [www.codesynthesis.com](https://www.codesynthesis.com/products/xsd/download.xhtml)
 
 
     git submodule update --init --recursive
-    cmake -S . -B build
-    make -C build
-    ./build/cfdi-project
+    cmake -G "Visual Studio 15 2017 Win64" -S . -B build
+    cmake --build build
+
+Pero ahí no acaba todo; se supone que todo es más fácil Windows, ¿no?
+
+Copia las carpetas cers y assets a la carpeta donde se encuentra el ejecutable cfdi-project.exe junto con las DLL's de xalan, xerces y openSSL; estan localizadas en la carpeta bin, respectivamente. Despues haré un script para automatizar todo esto.
 
 # TODO
 
-    [x] remover librería chilkat --------------------------- (Hecho - 01/08/21)
-    [x] añadir repo xalanc                                   (Hecho - 30/07/21)
-    [x] añadir sslfunctions para reemplazar chilkat -------- (Hecho - 01/08/21)
-    [x] probar en windows                                    (Hecho - 02/08/21)
-            (Fallos con librería xalanc y MinGW)
-    [x] añadir XercesC como submódulo para construirlo automáticamente
-    [x] sustituir xalanc con libXSLT
-    [x] Probado con msys2(No se ejecuta correctamente)       (Hecho - 11/08/21)
-
-    [x] probar en Windows con Visual Studio                  (Hecho - 12/08/21)
-        Se compilaron las librerías xerces-c y xalan-c exitosamente
-
-    [ ] añadir icu como submodule si aún es necesario al remover xalanc
+    [ ] Establecer la codificación a UTF-8
 
