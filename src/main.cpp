@@ -3,6 +3,7 @@
 //#include "catCFDI.hxx"
 #include "tdCFDI.hxx"
 #include "ssl_functions.hpp" 
+#include <applink.c>
 
 #include <xercesc/util/PlatformUtils.hpp>
 
