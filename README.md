@@ -92,6 +92,12 @@ Pero ahí no acaba todo; se supone que todo es más fácil Windows, ¿no?
 
 Copia las carpetas cers y assets a la carpeta donde se encuentra el ejecutable cfdi-project.exe junto con las DLL's de xalan, xerces y openSSL; estan localizadas en la carpeta bin, respectivamente. Despues haré un script para automatizar todo esto.
 
+La carpeta de tu ejecutable se verá así:
+
+![captura](./assets/screen_capture.png)
+
+al ejecutar cfdi-project.exe se crean los archivos test.xml y sealed.xml
+
 # TODO
 
     [ ] Hay un extraño error con la codificación. Por revisar.
