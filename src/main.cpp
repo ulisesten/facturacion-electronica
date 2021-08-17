@@ -9,12 +9,6 @@
 #include <xalanc/XalanTransformer/XalanTransformer.hpp>
 #include <xalanc/XalanTransformer/XalanCAPI.h>
 
-/**LiXSLT*/
-//#include <libxslt/xslt.h>
-//#include <libxslt/xsltInternals.h>
-//#include <libxslt/transform.h>
-//#include <libxslt/xsltutils.h>
-
 #include <iostream>
 #include <fstream>
 #include <ctime>
