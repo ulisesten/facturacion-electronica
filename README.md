@@ -10,6 +10,7 @@ Actualmente el proyecto corre perfectamente en linux, pero se está complicando 
 
 # Actualización
 
+- El proyecto funciona en Windows con la rama win32-xalanc
 - Las dependencias xercesc y xalanc se compilaron exitosamente con visual studio 15 2017
 - Se le dará prioridad a la rama win32-xalanc
 
@@ -17,6 +18,6 @@ Actualmente el proyecto corre perfectamente en linux, pero se está complicando 
 
 - win32
 - win32-qt
-- win32-xalanc (se actualizaron las intrucciones de compilación)
+- win32-xalanc (Funciona!)
 
 [Hacer una donación](https://paypal.me/ulisesten?locale.x=es_XC)
