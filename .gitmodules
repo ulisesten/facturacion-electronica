@@ -8,3 +8,6 @@
 [submodule "external/openssl"]
 	path = external/openssl
 	url = https://github.com/openssl/openssl.git
+[submodule "external/xalanc"]
+	path = external/xalanc
+	url = https://github.com/ulisesten/xalanc.git
