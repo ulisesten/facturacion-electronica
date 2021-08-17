@@ -107,14 +107,14 @@ int main(int argc, char *argv[]){
         XalanTransformer::initialize();
 
         {
+            XalanDOMString   encoding("UTF-8");
             XalanTransformer theXalanTransformer;
+            theXalanTransformer.setOutputEncoding(encoding);
 
             XSLTInputSource  xmlIn("test.xml");
             XSLTInputSource  xslIn("assets/cadenaoriginal1.xslt");
             XSLTResultTarget xmlOut("foo-out.xml");
-            XalanDOMString   encoding("UTF-8");
             
-            theXalanTransformer.setOutputEncoding(encoding);
 
             int theResult =
                 theXalanTransformer.transform(xmlIn,xslIn,xmlOut);

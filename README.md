@@ -2,7 +2,7 @@
 
 (En progreso)
 
-# El proyecto ya se logró compilar exitosamente :)
+# El proyecto ya se logró compilar en Windows :)
 
 Facturación electrónica (SAT, México) en C++
 
@@ -14,18 +14,18 @@ La aplicación es capaz de:
 2. leer el certificado
 3. crear cadena original
 4. crear XML con algunos datos del certificado(falta sello. La función para sellar
-    se añadirá en la librería ssl_functions).
+   se añadirá en la librería ssl_functions).
 
-
-# Requerimientos
-
-En linux ejecuta el script `dependencies.sh`.
 
 # Building
 
 Compilación de las dependencias.
 
 Para esta configuración yo instalé todas las librerías en `C:\`.
+
+con el siguiente comando se descargarán las dependencias en la carpeta external(Xerces, Xalanc, cfdi-class y openSSL)
+
+    git submodule update --init --recursive
 
 ## XercesC
 
@@ -48,7 +48,7 @@ Ahora hay que compilar xalanc
 
     cmake -DCMAKE_PREFIX_PATH=C:\xerces-c -G "Visual Studio 15 2017 Win64" -S . -B build -DCMAKE_INSTALL_PREFIX=C:\xalan-c
 
-antes del siguiente paso necesitas localizar el archivo `xerces-c_3_2D.dll` en `/xerces-c/bin(carpeta de instalación)`  y copiarlo a `xalanc/build/src/xalanc/Utils/MsgCreator/Debug` o en la carpeta donde se encuentra `MsgCreator.exe` dentro de la carpeta build creada por cmake
+antes del siguiente paso necesitas localizar el archivo `xerces-c_3_2D.dll` en `/xerces-c/bin`(carpeta de instalación)  y copiarlo a `xalanc/build/src/xalanc/Utils/MsgCreator/Debug` o en la carpeta donde se encuentra `MsgCreator.exe` dentro de la carpeta build creada por cmake
 
 ahora estas listo para construir xalanc con:
 
@@ -75,16 +75,16 @@ Abre una consola de Visual Studio como administrador en la carpeta de openSSL y 
 
 Y así ha quedado instalado openSSL
 
-Ahora sólo copia el archivo openssl/ms/applink.c a la carpeta include del proyecto, pues es una dependencia de openssl :(
-
 ## XSD
 
 Descarga en instala la siguiente librería [XSD download](https://www.codesynthesis.com/download/xsd/4.0/windows/i686/xsd-4.0.msi)
 
 o ve a [www.codesynthesis.com](https://www.codesynthesis.com/products/xsd/download.xhtml)
 
+## Listo
 
-    git submodule update --init --recursive
+Ahora en la carpeta del proyecto:
+
     cmake -G "Visual Studio 15 2017 Win64" -S . -B build
     cmake --build build
 
@@ -94,5 +94,5 @@ Copia las carpetas cers y assets a la carpeta donde se encuentra el ejecutable c
 
 # TODO
 
-    [ ] Establecer la codificación a UTF-8
+    [ ] Hay un extraño error con la codificación. Por revisar.
 
