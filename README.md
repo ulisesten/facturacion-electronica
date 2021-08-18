@@ -6,15 +6,13 @@ Si te interesa el proyecto no olvides poner una estrella o dejar para una cervez
 
 # Actualización
 
-- El proyecto funciona en Windows con la rama win32-xalanc
-- Las dependencias xercesc y xalanc se compilaron exitosamente con visual studio 15 2017
-- Se le dará prioridad a la rama win32-xalanc
-- El proyecto ya se logró compilar en Windows.
+- El proyecto funciona en Windows con la rama win32-xalanc(cunsulta las instrucciones de compilación).
+
 
 ## las ramas para windows son:
 
-- win32
-- win32-qt
 - win32-xalanc (Funciona!)
+- win32-qt
+- win32
 
 [Hacer una donación](https://paypal.me/ulisesten?locale.x=es_XC)
