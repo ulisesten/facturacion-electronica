@@ -9,8 +9,10 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <string.h>
 #include <openssl/bio.h>
 #include <openssl/x509.h>
+#include <openssl/sha.h>
 
 typedef struct{
     char* serial_number;
@@ -18,6 +20,7 @@ typedef struct{
 }DCert;
 
 DCert s_readCER(const char* file_name);
+char* encryption(char* cad);
 size_t b64_encoded_size(size_t inlen);
 char *b64_encode(const unsigned char *in, size_t len);
 

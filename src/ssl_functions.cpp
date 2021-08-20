@@ -1,3 +1,11 @@
+/**
+ * Ulisesten
+ * 2021
+ * https://github.com/ulisesten
+ * 
+ * functions to read certificates
+*/
+
 #include "ssl_functions.hpp"
 
 
@@ -29,6 +37,36 @@ DCert s_readCER(const char* file_name){
 
     return cer_info;
     
+}
+
+char* encryption(char* cad) {
+	unsigned char hash[SHA256_DIGEST_LENGTH];
+	char outputBuffer[65];
+	size_t len = strlen(cad);
+	int i;
+
+    SHA256_CTX context;
+    if(!SHA256_Init(&context))
+        return NULL;
+
+	
+    if (!SHA256_Update( &context, cad, len ))
+	    return NULL;
+        
+
+    if(!SHA256_Final(hash, &context))
+        return NULL;
+
+	for(i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        sprintf(&outputBuffer[i * 2], "%02x", hash[i]);
+    }
+
+    outputBuffer[64] = 0;
+
+	std::cout << outputBuffer << std::endl;
+
+	return outputBuffer;
 }
 
 

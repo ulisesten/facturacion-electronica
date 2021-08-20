@@ -20,14 +20,17 @@ using namespace sitio_internet::cfd::catalogos;
 using namespace sitio_internet::cfd::tipoDatos::tdCFDI;
 
 void createXML(Comprobante oComprobante, const char* xmlname);
+char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xml_output);
 Comprobante::Fecha_type getDate();
 
 int main(){
-    CFD_33::Emisor              oEmisor           = Emisor(       "PEPE080801JH1"  , c_RegimenFiscal::cxx_605 );
-    CFD_33::Receptor            oReceptor         = Receptor(     "hkghk"          , c_UsoCFDI::D01 );
 
-    oEmisor.Nombre       (      "Una Razón"   );
-    oReceptor.Nombre     (      "Pepe"        );
+
+    Emisor oEmisor          = Emisor(       "PEPE080801JH1"  , "605" );
+    Receptor oReceptor      = Receptor(     "hkghk"          , "D01" );
+
+    oEmisor.Nombre       (   "Una Razón"   );
+    oReceptor.Nombre     (   "Pepe"        );
 
 
     Cantidad              cantidad  = Cantidad(10);
@@ -42,9 +45,9 @@ int main(){
 
     conceptosList.push_back (
         Concepto(
-            c_ClaveProdServ::cxx_01010101 ,
+            "01010101" ,
             cantidad,
-            c_ClaveUnidad::cxx_05,
+            "05",
             desc,
             valor,
             importe
@@ -56,9 +59,9 @@ int main(){
 
     DCert cer_info = s_readCER("cers/CSD_XOCHILT_CASAS_CHAVEZ_2_CACX7605101P8_20190617_181215s.cer");
 
-    CFD_33::Sello               oSello            = Sello();
-    CFD_33::NoCertificado       oNoCertificado    = NoCertificado(cer_info.serial_number);
-    CFD_33::Certificado         oCertificado      = Certificado();
+    Sello               oSello            = Sello();
+    NoCertificado       oNoCertificado    = NoCertificado(cer_info.serial_number);
+    Certificado         oCertificado      = Certificado();
     
 
     Comprobante::Emisor_type      emisor_type       = oEmisor;
@@ -73,7 +76,7 @@ int main(){
     c_Moneda                      moneda            = "MXN";
     Comprobante::Total_type       total             = 12;
 
-    CFD_33::Comprobante oComprobante = Comprobante(
+    Comprobante oComprobante = Comprobante(
         emisor_type ,
         receptor_type,
         conceptos_type,
@@ -91,6 +94,27 @@ int main(){
     	
     createXML(oComprobante, "test.xml");
 
+    char* m_cadena = transformXSLT("test.xml", "assets/cadenaoriginal1.xslt", "foo-out.xml");
+    if(m_cadena != NULL) {
+
+        encryption(m_cadena);
+        encryption("1234");
+        
+    }
+
+    oComprobante.Certificado(cer_info.encoded);
+    
+    createXML(oComprobante, "sealed.xml");
+
+    return 0;
+
+}
+
+
+char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xml_output){
+
+    char* cad_out = NULL;
+
     try {
 
         using xercesc::XMLPlatformUtils;
@@ -104,20 +128,15 @@ int main(){
         XalanTransformer::initialize();
 
         {
-            XalanTransformer theXalanTransformer;
 
-            XSLTInputSource  xmlIn    ("test.xml");
-            XSLTInputSource  xslIn    ("assets/cadenaoriginal1.xslt");
-            XSLTResultTarget xmlOut   ("foo-out.xml");
+            XalanHandle handler = CreateXalanTransformer();
             XalanDOMString   encoding ("UTF-8");
             
-            theXalanTransformer.setOutputEncoding(encoding);
+            
+            int res = XalanTransformToData(xml_input, xsl_input, &cad_out, handler);
 
-            int theResult =
-                theXalanTransformer.transform(xmlIn,xslIn,xmlOut);
-
-            if(theResult != 0) {
-                std::cerr << "Error: " << theXalanTransformer.getLastError() << std::endl;
+            if( res != 0) {
+                std::cerr << "Error: in function transformXSLT():" << std::endl;
             }
 
         }
@@ -149,11 +168,7 @@ int main(){
         
     }*/
 
-    oComprobante.Certificado(cer_info.encoded);
-    
-    createXML(oComprobante, "sealed.xml");
-
-    return 0;
+    return cad_out;
 
 }
 
@@ -162,8 +177,8 @@ void createXML(Comprobante oComprobante, const char* xmlname){
         xercesc::XMLPlatformUtils::Initialize ();
         xml_schema::namespace_infomap map;
         map["cfdi"].name = "http://www.sat.gob.mx/cfd/3";
+        map["cfdi"].schema ="http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
         map["tfd" ].name = "http://www.sat.gob.mx/TimbreFiscalDigital";
-        //map["xsi" ].schema ="http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
         map["xsi" ].name = "http://www.w3.org/2001/XMLSchema-instance";
 
         std::ofstream ofs(xmlname);
