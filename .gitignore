@@ -13,3 +13,6 @@ _deps
 build/
 external/lib/
 assets/screen_capture.png
+test.xml
+sealed.xml
+foo-out.xml
