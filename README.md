@@ -17,30 +17,19 @@ La aplicación es capaz de:
 
 # Requerimientos
 
-En linux ejecuta el script `dependencies.sh`.
-
-En Windows descarga e instala las siguientes dependencias
+instala las siguientes dependencias
 
     XercesC
-    OpenSSL
+    XalanC
+    xsdcxx
 
 # Building
 
-    git submodule update --init --recursive
     cmake -S . -B build
     make -C build
     ./build/cfdi-project
 
 # TODO
 
-    [x] remover librería chilkat --------------------------- (Hecho - 01/08/21)
-    [x] añadir repo xalanc                                   (Hecho - 30/07/21)
-    [x] añadir sslfunctions para reemplazar chilkat -------- (Hecho - 01/08/21)
-    [x] probar en windows                                    (Hecho - 02/08/21)
-            (Fallos con librería xalanc y MinGW)
-    [x] añadir XercesC como submódulo para construirlo automáticamente
-    [x] sustituir xalanc con libXSLT
-
-    [ ] probar en Windows con Visual Studio
-    [ ] añadir icu como submodule si aún es necesario al remover xalanc
+    [ ] Añadir función para sellar factura
 

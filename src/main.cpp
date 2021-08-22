@@ -24,7 +24,8 @@ char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xm
 Comprobante::Fecha_type getDate();
 
 int main(){
-
+    const char* m_priv_key = "cers/CSD_XOCHILT_CASAS_CHAVEZ_2_CACX7605101P8_20190617_181215.key";
+    const char* m_password = "12345678a";
 
     Emisor oEmisor          = Emisor(       "PEPE080801JH1"  , "605" );
     Receptor oReceptor      = Receptor(     "hkghk"          , "D01" );
@@ -97,9 +98,10 @@ int main(){
     char* m_cadena = transformXSLT("test.xml", "assets/cadenaoriginal1.xslt", "foo-out.xml");
     if(m_cadena != NULL) {
 
-        encryption(m_cadena);
-        encryption("1234");
-        
+        char* m_encrypted_cad = s_encryptSHA256(m_cadena);
+
+        s_encryptRSA( m_encrypted_cad, (char*)m_priv_key, (char*)m_password );
+
     }
 
     oComprobante.Certificado(cer_info.encoded);

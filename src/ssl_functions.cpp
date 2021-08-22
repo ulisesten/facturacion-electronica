@@ -4,6 +4,7 @@
  * https://github.com/ulisesten
  * 
  * functions to read certificates
+ * functions to encrypt
 */
 
 #include "ssl_functions.hpp"
@@ -20,10 +21,10 @@ DCert s_readCER(const char* file_name){
     /**opening file*/
     file = fopen(file_name, "r");
 
-    /**reading file*/
+    /**preparing file*/
     certificate = d2i_X509_fp(file, NULL);
 
-    /**getting entyre file*/
+    /**copy content file*/
     len = i2d_X509(certificate, &out);
 
     /**encoding entyre file*/
@@ -32,14 +33,52 @@ DCert s_readCER(const char* file_name){
     /**getting certificate serial number*/
     cer_info.serial_number = (char*)X509_get_serialNumber (certificate)->data;
     
-    
     fclose(file);
 
     return cer_info;
-    
 }
 
-char* encryption(char* cad) {
+char* s_encryptRSA(char* input, char* priv_key_file, char* password){
+	PKCS8_PRIV_KEY_INFO * p8inf       =  NULL;
+	X509_SIG            * info_sig    =  NULL;
+	FILE                * file        =  NULL;
+	unsigned char       * out         =  NULL;
+	int len;
+
+    file = fopen (priv_key_file, "r");
+	
+    if( file != NULL) {
+		
+	    info_sig = d2i_PKCS8_fp (file, NULL);
+		       
+		if( p8inf != NULL ) {
+
+		    p8inf = PKCS8_decrypt(info_sig, password, (int)strlen((const char*)password));
+			if( p8inf ) {
+
+                len = i2d_PKCS8_PRIV_KEY_INFO(p8inf, &out);
+				for(int i = 0; i < len; i++)
+                    std::cout << out[i];
+				
+				std::cout << std::endl;
+
+			} else
+			    std::cout << "PKCS8_PRIV_KEY_INFO err " << std::endl;
+		    
+		} else
+            std::cout << "X509_Sig err " << std::endl;
+	
+	} else {
+        printf ("Unable to open file %s\n", priv_key_file);
+        return NULL;
+    }
+
+
+	fclose(file);
+	return "test";
+}
+
+char* s_encryptSHA256(char* cad) {
 	unsigned char hash[SHA256_DIGEST_LENGTH];
 	char outputBuffer[65];
 	size_t len = strlen(cad);
@@ -48,23 +87,19 @@ char* encryption(char* cad) {
     SHA256_CTX context;
     if(!SHA256_Init(&context))
         return NULL;
-
 	
     if (!SHA256_Update( &context, cad, len ))
 	    return NULL;
-        
 
     if(!SHA256_Final(hash, &context))
         return NULL;
 
-	for(i = 0; i < SHA256_DIGEST_LENGTH; i++)
-    {
+	for(i = 0; i < SHA256_DIGEST_LENGTH; i++){
         sprintf(&outputBuffer[i * 2], "%02x", hash[i]);
     }
 
     outputBuffer[64] = 0;
-
-	std::cout << outputBuffer << std::endl;
+	//std::cout << outputBuffer << std::endl;
 
 	return outputBuffer;
 }
@@ -81,6 +116,7 @@ size_t b64_encoded_size(size_t inlen) {
 
 	return ret;
 }
+
 
 char *b64_encode(const unsigned char *in, size_t len)
 {
