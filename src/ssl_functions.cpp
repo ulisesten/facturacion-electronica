@@ -57,6 +57,7 @@ char* s_encryptRSA(char* input, char* priv_key_file, char* password){
 			if( p8inf ) {
 
                 len = i2d_PKCS8_PRIV_KEY_INFO(p8inf, &out);
+				
 				for(int i = 0; i < len; i++)
                     std::cout << out[i];
 				

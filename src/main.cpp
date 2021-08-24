@@ -7,8 +7,10 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xalanc/Include/PlatformDefinitions.hpp>
 #include <xalanc/XalanTransformer/XalanTransformer.hpp>
+//#include <xalanc/XalanTransformer/XalanParsedSource.hpp>
 #include <xalanc/XalanTransformer/XalanCAPI.h>
 
+#include <sstream>
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -18,6 +20,12 @@ XERCES_CPP_NAMESPACE_USE
 using namespace CFD_33;
 using namespace sitio_internet::cfd::catalogos;
 using namespace sitio_internet::cfd::tipoDatos::tdCFDI;
+
+using xercesc::XMLPlatformUtils;
+using xalanc::XalanTransformer;
+using xalanc::XSLTInputSource;
+using xalanc::XSLTResultTarget;
+using xalanc::XalanDOMString;
 
 void createXML(Comprobante oComprobante, const char* xmlname);
 char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xml_output);
@@ -97,10 +105,13 @@ int main(){
 
     char* m_cadena = transformXSLT("test.xml", "assets/cadenaoriginal1.xslt", "foo-out.xml");
     if(m_cadena != NULL) {
-
+        std::cout << m_cadena << std::endl;
         char* m_encrypted_cad = s_encryptSHA256(m_cadena);
-
-        s_encryptRSA( m_encrypted_cad, (char*)m_priv_key, (char*)m_password );
+        
+        if(m_encrypted_cad)
+            s_encryptRSA( m_encrypted_cad, (char*)m_priv_key, (char*)m_password );
+        else
+            std::cout << "No encrypted cad" << std::endl;
 
     }
 
@@ -116,29 +127,32 @@ int main(){
 char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xml_output){
 
     char* cad_out = NULL;
+    std::string str;
 
     try {
-
-        using xercesc::XMLPlatformUtils;
-        using xalanc::XalanTransformer;
-        using xalanc::XSLTInputSource;
-        using xalanc::XSLTResultTarget;
-        using xalanc::XalanDOMString;
         
-
         XMLPlatformUtils::Initialize();
         XalanTransformer::initialize();
 
         {
+            XalanTransformer transformer;
+            XSLTInputSource  xmlIn(xml_input);
+            XSLTInputSource  xslIn(xsl_input);
+            std::stringstream  theOutputStream; 
 
-            XalanHandle handler = CreateXalanTransformer();
-            XalanDOMString   encoding ("UTF-8");
-            
-            
-            int res = XalanTransformToData(xml_input, xsl_input, &cad_out, handler);
+            transformer.setOutputEncoding(XalanDOMString("UTF-8"));
+            int res = transformer.transform( xmlIn
+                                            ,xslIn
+                                            ,XSLTResultTarget(theOutputStream));
 
+            //theOutputStream << '\0';
+            str = theOutputStream.str();
+            cad_out = (char *)malloc(str.size() + 1);
+            memcpy(cad_out, str.c_str(), str.size() + 1);
+            
             if( res != 0) {
                 std::cerr << "Error: in function transformXSLT():" << std::endl;
+                return NULL;
             }
 
         }
@@ -149,6 +163,7 @@ char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xm
 
     }   catch(...) {
         std::cerr << "An unknown error occurred!" << std::endl;
+        return NULL;
     }
 
     /*{
