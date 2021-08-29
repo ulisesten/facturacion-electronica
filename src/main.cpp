@@ -1,16 +1,14 @@
 
 #include "cfdv33.hxx"
-//#include "catCFDI.hxx"
+#include "catCFDI.hxx"
 #include "tdCFDI.hxx"
 #include "ssl_functions.hpp" 
 
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xalanc/Include/PlatformDefinitions.hpp>
 #include <xalanc/XalanTransformer/XalanTransformer.hpp>
-//#include <xalanc/XalanTransformer/XalanParsedSource.hpp>
 #include <xalanc/XalanTransformer/XalanCAPI.h>
 
-#include <sstream>
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -21,15 +19,10 @@ using namespace CFD_33;
 using namespace sitio_internet::cfd::catalogos;
 using namespace sitio_internet::cfd::tipoDatos::tdCFDI;
 
-using xercesc::XMLPlatformUtils;
-using xalanc::XalanTransformer;
-using xalanc::XSLTInputSource;
-using xalanc::XSLTResultTarget;
-using xalanc::XalanDOMString;
-
-void createXML(Comprobante oComprobante, const char* xmlname);
-char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xml_output);
-Comprobante::Fecha_type getDate();
+void createXML(     Comprobante oComprobante, const char* xmlname   );
+char* transformXSLT(const char* xml_input,    const char* xsl_input, const char* xml_output);
+Comprobante::
+Fecha_type m_getDate();
 
 int main(){
     const char* m_priv_key = "cers/CSD_XOCHILT_CASAS_CHAVEZ_2_CACX7605101P8_20190617_181215.key";
@@ -60,9 +53,10 @@ int main(){
             desc,
             valor,
             importe
-        ));
+        )
+    );
     
-    Conceptos                     oConceptos      = Conceptos();
+    Conceptos           oConceptos      = Conceptos();
 
     oConceptos.Concepto(conceptosList);
 
@@ -76,7 +70,7 @@ int main(){
     Comprobante::Emisor_type      emisor_type       = oEmisor;
     Comprobante::Receptor_type    receptor_type     = oReceptor;
     Comprobante::Conceptos_type   conceptos_type    = oConceptos;
-    Comprobante::Fecha_type       fecha             = getDate();
+    Comprobante::Fecha_type       fecha             = m_getDate();
     Comprobante::
     TipoDeComprobante_type        tipo_comprobante  = "I" ;
     Comprobante::
@@ -103,15 +97,12 @@ int main(){
     	
     createXML(oComprobante, "test.xml");
 
-    char* m_cadena = transformXSLT("test.xml", "assets/cadenaoriginal1.xslt", "foo-out.xml");
+    char* m_cadena = transformXSLT("test.xml", "assets/cadenaoriginal1.xslt", "cad.xml");
     if(m_cadena != NULL) {
-        std::cout << m_cadena << std::endl;
+
         char* m_encrypted_cad = s_encryptSHA256(m_cadena);
-        
-        if(m_encrypted_cad)
-            s_encryptRSA( m_encrypted_cad, (char*)m_priv_key, (char*)m_password );
-        else
-            std::cout << "No encrypted cad" << std::endl;
+
+        s_encryptRSA( m_encrypted_cad, (char*)m_priv_key, (char*)m_password );
 
     }
 
@@ -127,32 +118,26 @@ int main(){
 char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xml_output){
 
     char* cad_out = NULL;
-    std::string str;
 
     try {
+
+        using xercesc::XMLPlatformUtils;
+        using xalanc::XalanTransformer;
+        using xalanc::XSLTInputSource;
+        using xalanc::XSLTResultTarget;
+        using xalanc::XalanDOMString;
+        
         
         XMLPlatformUtils::Initialize();
         XalanTransformer::initialize();
 
         {
-            XalanTransformer transformer;
-            XSLTInputSource  xmlIn(xml_input);
-            XSLTInputSource  xslIn(xsl_input);
-            std::stringstream  theOutputStream; 
+            XalanHandle handler = CreateXalanTransformer();
+          
+            int res = XalanTransformToData(xml_input, xsl_input , &cad_out, handler);
 
-            transformer.setOutputEncoding(XalanDOMString("UTF-8"));
-            int res = transformer.transform( xmlIn
-                                            ,xslIn
-                                            ,XSLTResultTarget(theOutputStream));
-
-            //theOutputStream << '\0';
-            str = theOutputStream.str();
-            cad_out = (char *)malloc(str.size() + 1);
-            memcpy(cad_out, str.c_str(), str.size() + 1);
-            
             if( res != 0) {
                 std::cerr << "Error: in function transformXSLT():" << std::endl;
-                return NULL;
             }
 
         }
@@ -163,7 +148,6 @@ char* transformXSLT(const char* xml_input, const char* xsl_input, const char* xm
 
     }   catch(...) {
         std::cerr << "An unknown error occurred!" << std::endl;
-        return NULL;
     }
 
     /*{
@@ -210,8 +194,7 @@ void createXML(Comprobante oComprobante, const char* xmlname){
 }
 
 Comprobante::
-Fecha_type getDate(){
-
+Fecha_type m_getDate(){
     time_t ttime = time(0);
     tm* local_time = localtime(&ttime);
 
@@ -225,5 +208,4 @@ Fecha_type getDate(){
     ));
 
     return dt;
-
 }

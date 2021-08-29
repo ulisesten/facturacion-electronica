@@ -51,17 +51,17 @@ char* s_encryptRSA(char* input, char* priv_key_file, char* password){
 		
 	    info_sig = d2i_PKCS8_fp (file, NULL);
 		       
-		if( p8inf != NULL ) {
+		if( info_sig != NULL ) {
 
 		    p8inf = PKCS8_decrypt(info_sig, password, (int)strlen((const char*)password));
 			if( p8inf ) {
 
                 len = i2d_PKCS8_PRIV_KEY_INFO(p8inf, &out);
 				
-				for(int i = 0; i < len; i++)
+				/**for(int i = 0; i < len; i++)
                     std::cout << out[i];
 				
-				std::cout << std::endl;
+				std::cout << std::endl;*/
 
 			} else
 			    std::cout << "PKCS8_PRIV_KEY_INFO err " << std::endl;
