@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8...3.10)
 project(cfdi-project)
 
+execute_process(COMMAND  git submodule update --init --recursive
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
 #add_subdirectory(external/xerces-c      ${PROJECT_SOURCE_DIR}/external/lib/xerces-c-lib )
 add_subdirectory(external/cfdi-class    ${PROJECT_SOURCE_DIR}/external/lib/cfdi-lib     )
 

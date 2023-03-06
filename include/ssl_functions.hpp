@@ -20,6 +20,10 @@ typedef struct{
     char* encoded;
 }DCert;
 
+/**
+ * @author ulisesten
+ * @brief Opens the certificate
+**/
 DCert s_readCER(const char* file_name);
 
 /**
@@ -28,11 +32,11 @@ DCert s_readCER(const char* file_name);
 char* s_encryptSHA256(char* input);
 
 /**
- * ulisesten
- * This function decrypts the private key file(.key extension)
+ * @author ulisesten
+ * @brief This function decrypts the private key file(.key extension)
  * and encrypts it with sha256 digest to an RSA algorythm
  * @param input is the sha256 digest from s_encryptSHA256() function
- * @param private_key_file is the path to the .key file
+ * @param priv_key_file is the path to the .key file
  * @param password is the passphrase to decrypt the private ket
 **/
 char* s_encryptRSA(char* input, char* priv_key_file, char* password);
